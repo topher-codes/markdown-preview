@@ -1,34 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { marked } from 'marked';
+import { useState } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
+	const [input, setInput] = useState('');
+	const onChange = (e: any) => {
+		setInput(e.target.value);
+	};
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+	return (
+		<div className="container">
+			<textarea
+				name="editor"
+				id="editor"
+				cols={80}
+				rows={20}
+				onChange={onChange}
+				defaultValue={
+					'# A Header' +
+					'\n' +
+					'## Another Header' +
+					'\n' +
+					'\n' +
+					'### A third Header' +
+					'\n' +
+					'[link](https://example.com) \n' +
+					'\n' +
+					'`code()` \n' +
+					'\n' +
+					'``` \n' +
+					'code() \n' +
+					'``` \n' +
+					'- a list item \n\n' +
+					'\n' +
+					'> a quote \n' +
+					'![Image](https://cdn.freecodecamp.org/testable-projects-fcc/images/fcc_secondary.svg \n' +
+					'**bolded text**'
+				}
+			></textarea>
+			<div
+				id="preview"
+				dangerouslySetInnerHTML={{ __html: marked(input) }}
+			></div>
+		</div>
+	);
 }
 
-export default App
+export default App;
